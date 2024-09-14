@@ -15,8 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone')->nullable();
+            $table->string('birth_place')->nullable();
+            $table->timestamp('birth_date')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('profession')->nullable();
+            $table->tinyText('address')->nullable();
+            $table->string('card_id')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('role')->default("user"); // user, subscriber, admin, superadmin
             $table->rememberToken();
             $table->timestamps();
         });
