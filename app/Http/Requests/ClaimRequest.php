@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePaymentRequest extends FormRequest
+class ClaimRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,17 +22,9 @@ class StorePaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "subscription_id" => ["required","string", "exists:subscriptions,id"],
-            "amount" => ["required", "number"],
-            "transaction_id" => ["required", "string"],
+            "user_id" => ["required", "string", "exists:users,id"],
+            "description" => ["required", "string"],
             "status" => ["string"],
         ];
-    }
-
-
-    public function prepareForValidation(){
-        $this->merge([
-            "payment_date" => now()->toDateString(),
-        ]);
     }
 }

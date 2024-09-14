@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreSubscriptionRequest;
 use App\Models\Subscription;
 use App\Http\Requests\SubscriptionRequest;
-use App\Http\Requests\UpdateSubscriptionRequest;
+
 
 class SubscriptionController extends Controller
 {
@@ -20,7 +19,7 @@ class SubscriptionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSubscriptionRequest $request)
+    public function store(SubscriptionRequest $request)
     {
         $validated = $request->validate();
 
@@ -41,7 +40,7 @@ class SubscriptionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSubscriptionRequest $request, Subscription $subscription)
+    public function update(SubscriptionRequest $request, Subscription $subscription)
     {
         $validated = $request->validate();
 

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreClaimRequest;
-use App\Http\Requests\UpdateClaimRequest;
 use App\Models\Claim;
+use App\Http\Requests\ClaimRequest;
+
 
 class ClaimController extends Controller
 {
@@ -13,15 +13,19 @@ class ClaimController extends Controller
      */
     public function index()
     {
-        //
+        return Claim::all();
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreClaimRequest $request)
+    public function store(ClaimRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $claim = Claim::create($validated);
+
+        return $claim;
     }
 
     /**
@@ -29,15 +33,19 @@ class ClaimController extends Controller
      */
     public function show(Claim $claim)
     {
-        //
+        return $claim;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateClaimRequest $request, Claim $claim)
+    public function update(ClaimRequest $request, Claim $claim)
     {
-        //
+        $validated = $request->validated();
+
+        $claim->update($validated);
+
+        return $claim;
     }
 
     /**
@@ -45,6 +53,8 @@ class ClaimController extends Controller
      */
     public function destroy(Claim $claim)
     {
-        //
+        $claim->delete();
+
+        return ["message" => "You deleted the claim of id {$claim->id}"];
     }
 }
