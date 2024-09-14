@@ -11,7 +11,7 @@ class StorePaymentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,17 @@ class StorePaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "subscription_id" => ["required","string", "exists:subscriptions,id"],
+            "amount" => ["required", "number"],
+            "transaction_id" => ["required", "string"],
+            "status" => ["string"],
         ];
+    }
+
+
+    public function prepareForValidation(){
+        $this->merge([
+            "payment_date" => now()->toDateString(),
+        ]);
     }
 }

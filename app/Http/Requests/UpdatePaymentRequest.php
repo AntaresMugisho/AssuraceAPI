@@ -11,7 +11,7 @@ class UpdatePaymentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdatePaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "subscription_id" => ["string", "exists:subscriptions,id"],
+            "amount" => ["number"],
+            "transaction_id" => ["string"],
+            "status" => ["string"],
+            "payment_date" => ["date"],
         ];
     }
 }

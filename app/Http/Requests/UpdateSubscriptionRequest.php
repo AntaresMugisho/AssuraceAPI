@@ -23,9 +23,9 @@ class UpdateSubscriptionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "user_id" => ["required", "string", "exists:users,id"],
-            "plan_id" => ["required", "string", "exists:plans,id"],
-            "start_date" => ["required", "date"],
+            "user_id" => ["string", "exists:users,id"],
+            "plan_id" => ["string", "exists:plans,id"],
+            "start_date" => ["date"],
             "payment_status" => ["string"],
         ];
     }

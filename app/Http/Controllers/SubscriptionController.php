@@ -55,7 +55,8 @@ class SubscriptionController extends Controller
      */
     public function destroy(Subscription $subscription)
     {
+        $subscription->delete();
+        
         return ["message" => "You deleted the subscription of id {$subscription->id}"];
-
     }
 }

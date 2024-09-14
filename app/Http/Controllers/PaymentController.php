@@ -13,7 +13,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
+        return Payment::all();
     }
 
     /**
@@ -21,7 +21,11 @@ class PaymentController extends Controller
      */
     public function store(StorePaymentRequest $request)
     {
-        //
+        $validated = $request->validate();
+
+        $payment = Payment::create($validated);
+
+        return $payment;
     }
 
     /**
@@ -29,7 +33,7 @@ class PaymentController extends Controller
      */
     public function show(Payment $payment)
     {
-        //
+        return $payment;
     }
 
     /**
@@ -37,7 +41,11 @@ class PaymentController extends Controller
      */
     public function update(UpdatePaymentRequest $request, Payment $payment)
     {
-        //
+        $validated = $request->validate();
+
+        $payment->update($validated);
+
+        return $payment;
     }
 
     /**
@@ -45,6 +53,8 @@ class PaymentController extends Controller
      */
     public function destroy(Payment $payment)
     {
-        //
+        $payment->delete();
+
+        return ["message" => "You deleted the payment of id {$payment->id}"];
     }
 }
