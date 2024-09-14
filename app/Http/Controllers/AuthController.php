@@ -15,10 +15,18 @@ class AuthController extends Controller
             "name" => ["required", "string"],
             "email" => ["required", "string", "email", "unique:users"],
             "password" => ["required", "string", "confirmed"],
+            "phone" => ["string"],
+            "birth_place" => ["string"],
+            "birth_date" => ["string"],
+            "birth_gender" => ["string"],
+            "profession" => ["string"],
+            "address" => ["string"],
+            "role" => ["string"],
         ]);
 
 
         $user = User::create($fields);
+        $user->generateCardId();
 
         $token = $user->createToken($request->name);
 

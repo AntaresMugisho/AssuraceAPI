@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePlanRequest;
-use App\Http\Requests\UpdatePlanRequest;
 use App\Models\Plan;
+use App\Http\Requests\PlanRequest;
 
 class PlanController extends Controller
 {
@@ -13,15 +12,19 @@ class PlanController extends Controller
      */
     public function index()
     {
-        //
+        return Plan::all();
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePlanRequest $request)
+    public function store(PlanRequest $request)
     {
-        //
+        $fields = $request->validated();
+
+        $plan = Plan::create($fields);
+
+        return $plan;
     }
 
     /**
@@ -29,15 +32,19 @@ class PlanController extends Controller
      */
     public function show(Plan $plan)
     {
-        //
+        return $plan;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePlanRequest $request, Plan $plan)
+    public function update(PlanRequest $request, Plan $plan)
     {
-        //
+        $fields = $request->validated();
+
+        $plan = $plan->update($fields);
+
+        return $plan;
     }
 
     /**
@@ -45,6 +52,8 @@ class PlanController extends Controller
      */
     public function destroy(Plan $plan)
     {
-        //
+        $plan->delete();
+
+        return ["message" => "You deleted the plan of id {$plan->id}"];
     }
 }
