@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClaimController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PlanController;
+use App\Http\Controllers\SubscriptionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +27,9 @@ Route::middleware('auth:sanctum')->group(function (){
 
 // Model's CRUD
 
+Route::apiResource("plans", PlanController::class);
+Route::apiResource("subscriptions", SubscriptionController::class);
+Route::put("/subscriptions/{subscription}/upgrade", [SubscriptionController::class, "upgrade"]);
+Route::put("/subscriptions/{subscription}/renew", [SubscriptionController::class, "renew"]);
+Route::apiResource("payments", PaymentController::class);
+Route::apiResource("claims", ClaimController::class);
