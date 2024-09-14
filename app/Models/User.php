@@ -6,6 +6,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -46,6 +48,18 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Relation ships
+
+    public function subscription(): HasOne
+    {
+        return $this->hasOne(Subscription::class);
+    }
+
+    public function claims(): HasMany
+    {
+        return $this->hasMany(Claim::class);
     }
 
 
