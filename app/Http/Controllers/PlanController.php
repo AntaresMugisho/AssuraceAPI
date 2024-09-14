@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Plan;
+use Illuminate\Http\Request;
 use App\Http\Requests\PlanRequest;
 
 class PlanController extends Controller
@@ -56,4 +57,5 @@ class PlanController extends Controller
 
         return ["message" => "You deleted the plan of id {$plan->id}"];
     }
+
 }
