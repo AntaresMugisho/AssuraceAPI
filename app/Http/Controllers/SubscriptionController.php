@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSubscriptionRequest;
-use App\Http\Requests\UpdateSubscriptionRequest;
 use App\Models\Subscription;
+use App\Http\Requests\SubscriptionRequest;
+use App\Http\Requests\UpdateSubscriptionRequest;
 
 class SubscriptionController extends Controller
 {
@@ -13,7 +14,7 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
-        //
+        return Subscription::all();
     }
 
     /**
@@ -21,7 +22,12 @@ class SubscriptionController extends Controller
      */
     public function store(StoreSubscriptionRequest $request)
     {
-        //
+        $validated = $request->validate();
+
+        $subscription = Subscription::create($validated);
+
+        return $subscription;
+
     }
 
     /**
@@ -29,7 +35,7 @@ class SubscriptionController extends Controller
      */
     public function show(Subscription $subscription)
     {
-        //
+        return $subscription;
     }
 
     /**
@@ -37,7 +43,11 @@ class SubscriptionController extends Controller
      */
     public function update(UpdateSubscriptionRequest $request, Subscription $subscription)
     {
-        //
+        $validated = $request->validate();
+
+        $subscription->update($validated);
+
+        return $subscription;
     }
 
     /**
@@ -45,6 +55,7 @@ class SubscriptionController extends Controller
      */
     public function destroy(Subscription $subscription)
     {
-        //
+        return ["message" => "You deleted the subscription of id {$subscription->id}"];
+
     }
 }

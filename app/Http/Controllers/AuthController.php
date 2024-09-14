@@ -17,7 +17,7 @@ class AuthController extends Controller
             "password" => ["required", "string", "confirmed"],
             "phone" => ["string"],
             "birth_place" => ["string"],
-            "birth_date" => ["string"],
+            "birth_date" => ["date"],
             "birth_gender" => ["string"],
             "profession" => ["string"],
             "address" => ["string"],

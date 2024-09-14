@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
 
 class StoreSubscriptionRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StoreSubscriptionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,23 @@ class StoreSubscriptionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "user_id" => ["required", "string", "exists:users,id"],
+            "plan_id" => ["required", "string", "exists:plans,id"],
+            "start_date" => ["required", "date"],
+            "payment_status" => ["string"],
         ];
+    }
+
+    public function prepareForValiation(){
+        
+        $startDate = $this->start_date;
+        if ($startDate){
+            $endDate = Carbon::parse($startDate)->addYear();
+            $this->merge([
+                "end_date" => $endDate->toDateString(),
+            ]);
+
+        }
+
     }
 }

@@ -40,9 +40,9 @@ class PlanController extends Controller
      */
     public function update(PlanRequest $request, Plan $plan)
     {
-        $fields = $request->validated();
+        $validated = $request->validated();
 
-        $plan = $plan->update($fields);
+        $plan->update($validated);
 
         return $plan;
     }
