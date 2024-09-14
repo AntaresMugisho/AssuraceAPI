@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -44,5 +46,37 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+
+    // Local scopes
+
+    public function scopeUsers(Builder $query): void
+    {
+        $query->where("role", "user");
+    }
+
+    public function scopeSubscribers(Builder $query): void
+    {
+        $query->where("role", "subscriber");
+    }
+
+    public function scopeAdmins(Builder $query): void
+    {
+        $query->where("role", "admin");
+    }
+
+    public function scopeSuperAdmins(Builder $query): void
+    {
+        $query->where("role", "superadmin");
+    }
+
+
+
+    // Helpers 
+
+    public function hasRole($role): bool
+    {
+        return $this->role === $role;
     }
 }

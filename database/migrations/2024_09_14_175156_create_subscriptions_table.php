@@ -19,8 +19,8 @@ return new class extends Migration
             $table->timestamp("end_date");
             $table->string("status")->default("active"); // active, expired, canceled, upgraded, renewed
             $table->string("payment_status")->default("unpaid"); // unpaid, paid
-            $table->foreignId("upgrade_from")->nullable();
-            $table->foreignId("renewal_of")->nullable();
+            $table->foreignId("upgrade_from")->nullable(); // References plans(id)
+            $table->foreignId("renewal_of")->nullable(); // References plans(id)
             $table->timestamps();
         });
     }
