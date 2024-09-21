@@ -29,10 +29,11 @@ class AuthController extends Controller
         $user->generateCardId();
 
         $token = $user->createToken($request->name);
+        
+        $user["token"] = $token->plainTextToken;
 
         return [
             "user" => $user,
-            "token" => $token->plainTextToken,
         ];
     }
 
@@ -53,10 +54,10 @@ class AuthController extends Controller
         }
 
         $token = $user->createToken($user->name);
+        $user["token"] = $token->plainTextToken;
 
         return [
             "user" => $user,
-            "token" => $token->plainTextToken,
         ];
     }
 
