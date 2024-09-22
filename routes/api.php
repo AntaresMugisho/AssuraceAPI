@@ -23,6 +23,8 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+    
+    Route::post("/user/edit/{id}", [UserController::class, "update"]);
 
     // Logout
     Route::post("/logout", [AuthController::class, "logout"]);
