@@ -16,14 +16,14 @@ Route::post("/login", [AuthController::class, "login"])->name("login");
 
 Route::middleware('auth:sanctum')->group(function (){
     
+    // Get users
+    Route::get("/users", [UserController::class, "index"])->middleware("role:admin");
+    
     // Get Authenticated user
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
 
-    // Get users
-    Route::get("/users", [UserController::class, "index"]);
-    
     // Logout
     Route::post("/logout", [AuthController::class, "logout"]);
 });
