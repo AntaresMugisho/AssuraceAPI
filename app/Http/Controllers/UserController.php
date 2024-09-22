@@ -52,7 +52,34 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $fields = $request->validate([
+            "name" => ["string"],
+            "email" => ["string", "email", "unique:users"],
+            "password" => ["string", "confirmed"],
+            "phone" => ["string"],
+            "birth_place" => ["string"],
+            "birth_date" => ["date"],
+            "birth_gender" => ["string"],
+            "profession" => ["string"],
+            "address" => ["string"],
+            "image" => ["image", "max:2048"],
+            "role" => ["string"],
+        ]);
+
+        $user = User::find($id);
+        
+        if ($request->image !== null){
+            $path = $request->image->store("images/users", "public");
+            $fields["image"] = $path;
+        }
+
+        $user->update($fields);
+
+        return [
+            "user" => $user,
+        ];
+
+
     }
 
     /**

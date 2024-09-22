@@ -21,9 +21,14 @@ class AuthController extends Controller
             "birth_gender" => ["string"],
             "profession" => ["string"],
             "address" => ["string"],
+            "image" => ["image", "max:2048"],
             "role" => ["string"],
         ]);
 
+        if ($request->image !== null){
+            $path = $request->image->store("images/users", "public");
+            $fields["image"] = $path;
+        }
 
         $user = User::create($fields);
         $user->generateCardId();
