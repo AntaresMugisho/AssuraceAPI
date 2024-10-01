@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
     public function register(Request $request)
     {
-
         $fields = $request->validate([
             "name" => ["required", "string"],
             "email" => ["required", "string", "email", "unique:users"],
@@ -24,7 +24,7 @@ class AuthController extends Controller
             "image" => ["image", "max:2048"],
             "role" => ["string"],
         ]);
-
+        
         if ($request->image !== null){
             $path = $request->image->store("images/users", "public");
             $fields["image"] = $path;
@@ -44,11 +44,14 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             "email" => ["required", "string", "email"],
             "password" => ["required", "string"],
         ]);
+ 
+        if ($validator->fails()) {
+            return response()->json(["message" => $validator->errors()], 422);
+        }
 
         $user = User::where("email", $request->email)->first();
 
